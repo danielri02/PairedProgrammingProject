@@ -13,8 +13,8 @@ public class Book {
     private int bookId;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "AuthorId")
-    private Author author;
+    @JoinColumn(name = "UserId")
+    private User user;
 
     @Column(nullable = false, unique = true)
     private String bookName;
@@ -25,9 +25,9 @@ public class Book {
     public Book() {
     }
 
-    public Book(int bookId, Author author, String bookName) {
+    public Book(int bookId, User user, String bookName) {
         this.bookId = bookId;
-        this.author = author;
+        this.user = user;
         this.bookName = bookName;
     }
 
@@ -47,19 +47,19 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public Author getAuthor() {
-        return author;
+    public User getUser() {
+        return user;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
-                ", author=" + author +
+                ", user=" + user +
                 ", bookName='" + bookName + '\'' +
                 '}';
     }

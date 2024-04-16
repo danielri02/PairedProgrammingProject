@@ -19,20 +19,20 @@ public class BookController {
         this.bookDAO = bookDAO;
     }
 
-    @PostMapping("/{authorId}")
-    public ResponseEntity<Book> insertBook(@RequestBody Book book, @PathVariable int authorId) {
-        Author a = authorDAO.findById(authorId).get();
-        book.setAuthor(a);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Book> insertBook(@RequestBody Book book, @PathVariable int userId) {
+        User u = userDAO.findById(userId).get();
+        book.setUser(u);
         Book b = bookDAO.save(book);
         return ResponseEntity.status(201).body(b);
     }
 
-    @PutMapping("/{authorId}")
-    public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable int authorId) {
-        Author a = authorDAO.findById(authorId).get();
-        book.setAuthor(a);
+    @PutMapping("/{userId}")
+    public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable int userId) {
+        Useru = userDAO.findById(userId).get();
+        book.setUser(u);
         Book b = bookDAO.save(book);
-        return ResponseEntity.ok(g);
+        return ResponseEntity.ok(b);
     }
 
 
@@ -50,12 +50,12 @@ public class BookController {
     }
      */
 
-    @GetMapping("/{authorId}")
-    public ResponseEntity<Book> getBookByName(@PathVariable Integer authorId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<Book> getBookByName(@PathVariable Integer userId) {
         //moderately certain this returns a list
-        System.out.println("get by author id ");
-        System.out.println(bookDAO.findByAuthorAuthorId(authorId));
-        Book b = bookDAO.findByAuthorAuthorId(authorId);
+        System.out.println("get by user id ");
+        System.out.println(bookDAO.findByUserUserId(userId));
+        Book b = bookDAO.findByUserUserId(userId);
         if (b == null) {
             return ResponseEntity.notFound().build();
         }
