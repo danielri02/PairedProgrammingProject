@@ -1,7 +1,9 @@
 package com.revature.controllers;
 
 import com.revature.daos.BookDAO;
+import com.revature.daos.UserDAO;
 import com.revature.models.Book;
+import com.revature.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @RequestMapping(value = "/books")
 public class BookController {
     BookDAO bookDAO;
+    UserDAO userDAO;
 
     @Autowired
-    public BookController(BookDAO bookDAO) {
+    public BookController(BookDAO bookDAO, UserDAO userDAO) {
         this.bookDAO = bookDAO;
+        this.userDAO = userDAO;
     }
 
     @PostMapping("/{userId}")
@@ -29,7 +33,7 @@ public class BookController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable int userId) {
-        Useru = userDAO.findById(userId).get();
+        User u = userDAO.findById(userId).get();
         book.setUser(u);
         Book b = bookDAO.save(book);
         return ResponseEntity.ok(b);

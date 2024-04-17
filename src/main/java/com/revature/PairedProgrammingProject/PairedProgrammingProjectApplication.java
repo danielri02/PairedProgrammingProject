@@ -7,13 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-<<<<<<< HEAD
-@ComponentScan("com.revature")
-@EntityScan("com.revature.models")
-=======
 @EntityScan("com.revature.models")
 @ComponentScan("com.revature")
->>>>>>> origin/thomas
 @EnableJpaRepositories("com.revature.daos")
 public class PairedProgrammingProjectApplication {
 
