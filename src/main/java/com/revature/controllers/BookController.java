@@ -23,7 +23,25 @@ public class BookController {
         this.userDAO = userDAO;
     }
 
-    @PostMapping("/{userId}")
+    @GetMapping
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = bookDAO.findAll();
+        return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/{bookId}")
+    public ResponseEntity<Book> getBook(@PathVariable int bookId) {
+        Book b = bookDAO.findById(bookId).get();
+        return ResponseEntity.ok().body(b);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Book>> getBookByUser(@PathVariable int userId) {
+        List<Book> bookList = bookDAO.findByUserUserId(userId);
+        return ResponseEntity.ok().body(bookList);
+    }
+
+    @PostMapping("/user/{userId}")
     public ResponseEntity<Book> insertBook(@RequestBody Book book, @PathVariable int userId) {
         User u = userDAO.findById(userId).get();
         book.setUser(u);
@@ -31,38 +49,11 @@ public class BookController {
         return ResponseEntity.status(201).body(b);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/user/{userId}")
     public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable int userId) {
         User u = userDAO.findById(userId).get();
         book.setUser(u);
         Book b = bookDAO.save(book);
-        return ResponseEntity.ok(b);
-    }
-
-
-    @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> books = bookDAO.findAll();
-        return ResponseEntity.ok(books);
-    }
-
-    /*ask the guy: how do you differentiate between item id and user id in variables?
-    @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> books = bookDAO.findAll();
-        return ResponseEntity.ok(books);
-    }
-     */
-
-    @GetMapping("/{userId}")
-    public ResponseEntity<Book> getBookByName(@PathVariable Integer userId) {
-        //moderately certain this returns a list
-        System.out.println("get by user id ");
-        System.out.println(bookDAO.findByUserUserId(userId));
-        Book b = bookDAO.findByUserUserId(userId);
-        if (b == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(b);
     }
 
