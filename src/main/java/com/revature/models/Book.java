@@ -14,26 +14,25 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
 
+    @Column(nullable = false, unique = true)
+    private String title;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @Column(nullable = false, unique = true)
-    private String bookName;
-
-    //other properties here if needed
-
-
+    // Constructors
     public Book() {
     }
 
-    public Book(int bookId, User user, String bookName) {
+    public Book(int bookId, User user, String title) {
         this.bookId = bookId;
         this.user = user;
-        this.bookName = bookName;
+        this.title = title;
     }
 
+    // Getters and Setters
     public int getBookId() {
         return bookId;
     }
@@ -42,12 +41,12 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public User getUser() {
@@ -58,12 +57,13 @@ public class Book {
         this.user = user;
     }
 
+    // Other
     @Override
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
                 ", user=" + user +
-                ", bookName='" + bookName + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }
